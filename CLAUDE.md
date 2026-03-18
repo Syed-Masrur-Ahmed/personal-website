@@ -1,27 +1,48 @@
 # Project Brief: 3D Radial Portfolio Website
 
 ## Context
-Act as an expert frontend engineer specializing in WebGL, Three.js, and React architecture. We are building a 3D interactive portfolio.
+Act as an expert frontend engineer specializing in WebGL, Three.js, and React architecture. We are building a 3D interactive portfolio for **Syed Masrur Ahmed**.
 
-Instead of a standard scrolling page or a chaotic physics-based force graph, this is a **deterministic, static 3D radial graph**.
-* The camera starts focused on a central "About Me" node.
-* "Tier 1" category nodes (Projects, Experience, Education) orbit this center at a fixed distance.
-* Clicking a Tier 1 node smoothly flies the camera to that node, making it the new visual center.
-* Once the camera arrives, that category's specific "Tier 2" leaf nodes scale up and spawn radially around it.
-* A 2D HTML UI overlay allows the user to click into the actual project pages or return to the center.
+This is a **deterministic, static 3D radial graph** with path-based navigation:
+* Camera starts looking at the central root node.
+* Tier 1 category nodes (Projects, Experience, Education) orbit the root in a flat circle.
+* Clicking a Tier 1 node flies the camera to it and makes it the visual center — root and other Tier 1 nodes are hidden.
+* Tier 2 leaf nodes spawn radially around the active Tier 1 node.
+* A breadcrumb at the bottom shows the navigation path and allows going back.
 
 ## Tech Stack
 * **Framework:** Next.js (App Router)
 * **3D Renderer:** React Three Fiber (R3F)
-* **3D Helpers:** @react-three/drei (specifically `<Html>`, `<OrbitControls>`, `<Line>`)
-* **Animation:** framer-motion & framer-motion-3d
+* **3D Helpers:** @react-three/drei (`<TrackballControls>`, `<Line>`)
 * **State Management:** Zustand
 * **Styling:** Tailwind CSS
 
+> Note: `framer-motion-3d` is installed but has a peer dep conflict with R3F v9. It is not currently used — do not use it for animation. Use `useFrame` lerp instead.
+
 ---
 
-## The Data Structure
-Store in `src/data/graphData.ts`:
+## File Structure
+
+```
+src/
+  app/
+    page.tsx          — mounts <Experience /> and <Breadcrumb />
+    layout.tsx
+    globals.css       — black background, overflow hidden
+  components/
+    Experience.tsx    — R3F canvas, Graph, CameraRig
+    Breadcrumb.tsx    — HTML breadcrumb overlay
+  data/
+    graphData.ts      — portfolioData array and GraphNode type
+  lib/
+    spherical.ts      — calculateSphericalPositions, calculateCircularPositions
+  store/
+    graphStore.ts     — Zustand store (activePath, navigateTo, navigateToIndex)
+```
+
+---
+
+## The Data Structure (`src/data/graphData.ts`)
 
 ```typescript
 export type GraphNode = {
@@ -33,25 +54,20 @@ export type GraphNode = {
 };
 
 export const portfolioData: GraphNode[] = [
-  // Root
   { id: "root", label: "Syed Masrur Ahmed", tier: 0, parentId: null },
 
-  // Tier 1 Categories
   { id: "projects", label: "Projects", tier: 1, parentId: "root" },
   { id: "experience", label: "Experience", tier: 1, parentId: "root" },
   { id: "education", label: "Education", tier: 1, parentId: "root" },
 
-  // Tier 2: Projects
   { id: "simreach", label: "SimReach", tier: 2, parentId: "projects", href: "/projects/simreach" },
   { id: "sodacan", label: "sodacan", tier: 2, parentId: "projects", href: "/projects/sodacan" },
   { id: "webcite", label: "WebCite", tier: 2, parentId: "projects", href: "/projects/webcite" },
   { id: "violens", label: "VioLens", tier: 2, parentId: "projects", href: "/projects/violens" },
 
-  // Tier 2: Experience
   { id: "springmicro", label: "SpringMicro Software", tier: 2, parentId: "experience", href: "/experience/springmicro" },
   { id: "eskay", label: "ESKAY Science", tier: 2, parentId: "experience", href: "/experience/eskay" },
 
-  // Tier 2: Education
   { id: "dartmouth", label: "Dartmouth College", tier: 2, parentId: "education", href: "/education/dartmouth" },
   { id: "willes", label: "Willes Little Flower", tier: 2, parentId: "education", href: "/education/willes" },
 ];
@@ -59,30 +75,67 @@ export const portfolioData: GraphNode[] = [
 
 ---
 
-## Implementation Rules
-Build in strict, isolated steps. **Do not jump ahead.**
+## State (`src/store/graphStore.ts`)
 
-### Step 1: Spherical Math & Basic Setup
-1. Create `calculateSphericalPositions(count, radius)` utility returning `{ x, y, z }[]` evenly distributed on a sphere.
-2. Set up a full-screen R3F `<Canvas>` on the main page.
+```typescript
+activePath: string[]   // e.g. ['root'] | ['root', 'projects'] | ['root', 'projects', 'simreach']
+navigateTo(id)         // push id onto activePath
+navigateToIndex(i)     // slice activePath to depth i+1 (used by breadcrumb)
+```
 
-### Step 2: Render Tier 0 & Tier 1
-1. Render root node at `[0, 0, 0]`.
-2. Filter Tier 1 nodes, position at `radius={10}` using the math utility.
-3. Render as `<mesh><sphereGeometry /></mesh>`.
-4. Add `<OrbitControls>` and ambient light.
+`activeNodeId` = `activePath[activePath.length - 1]`
+`activeDepth` = `activePath.length - 1` (0 = root view, 1 = tier1 view)
 
-### Step 3: State & Camera Transition
-1. Zustand store `useGraphStore` tracking `activeNodeId` (default: "root").
-2. `onClick` on meshes updates `activeNodeId`.
-3. Animate camera to active Tier 1 node's position; update `OrbitControls` target.
+---
 
-### Step 4: Spawning Tier 2 & Connecting Lines
-1. When Tier 1 is active, position Tier 2 children at `radius={5}` relative to active node.
-2. Animate Tier 2 nodes scaling `0 → 1` on mount.
-3. Draw `<Line>` connections: root↔Tier1, active Tier1↔its Tier2 children.
+## World Positions (`src/components/Experience.tsx`)
 
-### Step 5: HTML Labels & Routing
-1. Drei `<Html>` labels on every visible node.
-2. "Back to Center" button outside canvas resets `activeNodeId` to "root".
-3. Clicking Tier 2 node navigates to its `href` via Next.js `useRouter`.
+All positions are pre-computed at module level (not in state):
+
+```
+TIER1_RADIUS = 5   — circular in XZ plane around root
+TIER2_RADIUS = 3.5 — circular in XZ plane around their tier 1 parent
+```
+
+`nodeWorldPositions: Record<string, THREE.Vector3>` — contains positions for all nodes (tier 0, 1, and 2).
+
+Tier 1 uses `calculateCircularPositions` (equal angular spacing — NOT the Fibonacci sphere, which gave uneven results for small counts).
+
+---
+
+## Camera (`CameraRig` in `Experience.tsx`)
+
+* Uses `useFrame` to lerp `camera.position` and `controls.target` toward the active node.
+* `animating` ref is set `true` when `activeNodeId` changes, `false` when camera arrives (`ARRIVE_THRESHOLD = 0.05`).
+* `TrackballControls` is **always enabled** — never disabled during animation. Disabling and re-enabling caused the camera to jump due to stale internal `_eye` state.
+* Camera position target = `nodePos.normalize() * (nodePos.length() + CAM_OFFSET)` where `CAM_OFFSET = 14`. Root home = `[0, 0, 18]`.
+
+---
+
+## Graph Rendering (`Graph` in `Experience.tsx`)
+
+**Depth 0 (root active):**
+- White sphere at `[0,0,0]` (clickable → navigateTo('root') re-triggers animation)
+- Blue spheres for Tier 1 nodes (clickable → navigateTo(id))
+- Dotted `<Line>` edges from root to each Tier 1 node
+
+**Depth 1 (Tier 1 active):**
+- Blue sphere for the active Tier 1 node (not clickable)
+- Purple/indigo spheres for its Tier 2 children (clickable)
+- Dotted `<Line>` edges from Tier 1 to each Tier 2 child
+- Root and other Tier 1 nodes are hidden
+
+---
+
+## Breadcrumb (`src/components/Breadcrumb.tsx`)
+
+HTML overlay at `bottom-8`, centered. Shows the full `activePath` as clickable labels separated by `→`. Non-active items call `navigateToIndex(i)` on click. Always visible.
+
+---
+
+## Remaining Work
+
+### Step 5: Labels & Routing
+1. Add Drei `<Html>` labels on every visible node so text is crisp and readable.
+2. When a Tier 2 node is clicked, use Next.js `useRouter` to navigate to its `href`.
+3. Build out the individual project/experience/education pages at those routes.

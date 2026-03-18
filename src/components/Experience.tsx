@@ -1,8 +1,9 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { TrackballControls, Line } from '@react-three/drei'
+import { TrackballControls, Line, Html } from '@react-three/drei'
+import { useRouter } from 'next/navigation'
 import * as THREE from 'three'
 import { portfolioData } from '@/data/graphData'
 import { calculateCircularPositions } from '@/lib/spherical'
@@ -12,10 +13,12 @@ import { useGraphStore } from '@/store/graphStore'
 
 const TIER1_RADIUS = 5
 const TIER2_RADIUS = 3.5
+const ORBIT_SPEED = 0.15 // radians per second
 
 const tier1Nodes = portfolioData.filter((n) => n.tier === 1)
 const tier1CircPositions = calculateCircularPositions(tier1Nodes.length, TIER1_RADIUS)
 
+// Mutable — updated on click to capture the orbital position at moment of selection
 const nodeWorldPositions: Record<string, THREE.Vector3> = {
   root: new THREE.Vector3(0, 0, 0),
   ...Object.fromEntries(
@@ -26,27 +29,13 @@ const nodeWorldPositions: Record<string, THREE.Vector3> = {
   ),
 }
 
-// Tier 2 — circular around their tier 1 parent
-tier1Nodes.forEach((t1) => {
-  const parentPos = nodeWorldPositions[t1.id]
-  const children = portfolioData.filter((n) => n.parentId === t1.id)
-  const positions = calculateCircularPositions(children.length, TIER2_RADIUS)
-  children.forEach((child, j) => {
-    nodeWorldPositions[child.id] = new THREE.Vector3(
-      parentPos.x + positions[j].x,
-      parentPos.y + positions[j].y,
-      parentPos.z + positions[j].z,
-    )
-  })
-})
-
 // ─── Camera rig ───────────────────────────────────────────────────────────────
 
-const CAM_OFFSET = 14
+const CAM_OFFSET = 10
 const ARRIVE_THRESHOLD = 0.05
 
 function getCameraPosition(nodeId: string): THREE.Vector3 {
-  if (nodeId === 'root') return new THREE.Vector3(0, 0, 18)
+  if (nodeId === 'root') return new THREE.Vector3(0, 0, 13)
   const pos = nodeWorldPositions[nodeId]
   return pos.clone().normalize().multiplyScalar(pos.length() + CAM_OFFSET)
 }
@@ -57,29 +46,27 @@ const CameraRig = ({ controlsRef }: { controlsRef: ControlsRef }) => {
   const activePath = useGraphStore((s) => s.activePath)
   const activeNodeId = activePath[activePath.length - 1]
 
-  const animating = useRef(false)
+  const animating = useRef(true)
   const prevNodeId = useRef(activeNodeId)
-
-  const targetCamPos = useMemo(() => getCameraPosition(activeNodeId), [activeNodeId])
-  const targetLookAt = useMemo(
-    () => nodeWorldPositions[activeNodeId]?.clone() ?? new THREE.Vector3(),
-    [activeNodeId]
-  )
+  const targetCamPos = useRef(getCameraPosition(activeNodeId))
+  const targetLookAt = useRef(nodeWorldPositions[activeNodeId]?.clone() ?? new THREE.Vector3())
 
   if (prevNodeId.current !== activeNodeId) {
     prevNodeId.current = activeNodeId
+    targetCamPos.current = getCameraPosition(activeNodeId)
+    targetLookAt.current = nodeWorldPositions[activeNodeId]?.clone() ?? new THREE.Vector3()
     animating.current = true
   }
 
   useFrame(({ camera }) => {
     if (!animating.current) return
-    camera.position.lerp(targetCamPos, 0.06)
+    camera.position.lerp(targetCamPos.current, 0.03)
     if (controlsRef.current) {
-      controlsRef.current.target.lerp(targetLookAt, 0.06)
+      controlsRef.current.target.lerp(targetLookAt.current, 0.03)
     }
-    if (camera.position.distanceTo(targetCamPos) < ARRIVE_THRESHOLD) {
-      camera.position.copy(targetCamPos)
-      if (controlsRef.current) controlsRef.current.target.copy(targetLookAt)
+    if (camera.position.distanceTo(targetCamPos.current) < ARRIVE_THRESHOLD) {
+      camera.position.copy(targetCamPos.current)
+      if (controlsRef.current) controlsRef.current.target.copy(targetLookAt.current)
       animating.current = false
     }
   })
@@ -87,115 +74,157 @@ const CameraRig = ({ controlsRef }: { controlsRef: ControlsRef }) => {
   return null
 }
 
-// ─── Graph ────────────────────────────────────────────────────────────────────
+// ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const hover = (on: boolean) => () => { document.body.style.cursor = on ? 'pointer' : 'default' }
 
+const Label = ({ text }: { text: string }) => (
+  <Html center distanceFactor={10} zIndexRange={[0, 0]}>
+    <span style={{
+      color: 'white',
+      fontSize: '12px',
+      whiteSpace: 'nowrap',
+      pointerEvents: 'none',
+      userSelect: 'none',
+      textShadow: '0 1px 4px rgba(0,0,0,0.8)',
+      letterSpacing: '0.05em',
+    }}>
+      {text}
+    </span>
+  </Html>
+)
+
+// ─── Root view ────────────────────────────────────────────────────────────────
+
+const RootView = ({ navigateTo }: { navigateTo: (id: string) => void }) => {
+  const groupRef = useRef<THREE.Group>(null)
+
+  useFrame(({ clock }) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = clock.getElapsedTime() * ORBIT_SPEED
+    }
+  })
+
+  return (
+    <>
+      {/* Root node */}
+      <mesh
+        position={[0, 0, 0]}
+        onClick={(e) => { e.stopPropagation(); navigateTo('root') }}
+        onPointerOver={hover(true)}
+        onPointerOut={hover(false)}
+      >
+        <sphereGeometry args={[0.6, 32, 32]} />
+        <meshBasicMaterial color="#444444" />
+        <Label text="About Me" />
+      </mesh>
+
+      {/* Orbiting tier 1 group — edges and nodes share local space */}
+      <group ref={groupRef}>
+        {tier1Nodes.map((node, i) => {
+          const { x, y, z } = tier1CircPositions[i]
+          return (
+            <group key={node.id}>
+              <Line
+                points={[[0, 0, 0], [x, y, z]]}
+                color="#555555"
+                lineWidth={1}
+                dashed
+                dashSize={0.2}
+                gapSize={0.2}
+              />
+              <mesh
+                position={[x, y, z]}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  // Capture world position at click time so camera flies to correct spot
+                  const worldPos = new THREE.Vector3()
+                  e.object.getWorldPosition(worldPos)
+                  nodeWorldPositions[node.id] = worldPos
+                  navigateTo(node.id)
+                }}
+                onPointerOver={hover(true)}
+                onPointerOut={hover(false)}
+              >
+                <sphereGeometry args={[0.4, 32, 32]} />
+                <meshBasicMaterial color="#aaaaaa" />
+                <Label text={node.label} />
+              </mesh>
+            </group>
+          )
+        })}
+      </group>
+    </>
+  )
+}
+
+// ─── Tier 1 view ──────────────────────────────────────────────────────────────
+
+const Tier1View = ({ activeTier1Id }: { activeTier1Id: string }) => {
+  const router = useRouter()
+  const groupRef = useRef<THREE.Group>(null)
+
+  const t1Node = portfolioData.find((n) => n.id === activeTier1Id)!
+  const t1Pos = nodeWorldPositions[activeTier1Id]
+  const tier2Children = portfolioData.filter((n) => n.parentId === activeTier1Id)
+  const tier2Positions = calculateCircularPositions(tier2Children.length, TIER2_RADIUS)
+
+  useFrame(({ clock }) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y = clock.getElapsedTime() * ORBIT_SPEED
+    }
+  })
+
+  return (
+    <>
+      {/* Active tier 1 — static center */}
+      <mesh position={t1Pos.toArray()}>
+        <sphereGeometry args={[0.5, 32, 32]} />
+        <meshBasicMaterial color="#444444" />
+        <Label text={t1Node.label} />
+      </mesh>
+
+      {/* Orbiting tier 2 group — centered on tier 1 node */}
+      <group position={t1Pos.toArray()} ref={groupRef}>
+        {tier2Children.map((node, i) => {
+          const { x, y, z } = tier2Positions[i]
+          return (
+            <group key={node.id}>
+              <Line
+                points={[[0, 0, 0], [x, y, z]]}
+                color="#555555"
+                lineWidth={1}
+                dashed
+                dashSize={0.2}
+                gapSize={0.2}
+              />
+              <mesh
+                position={[x, y, z]}
+                onClick={(e) => { e.stopPropagation(); if (node.href) router.push(node.href) }}
+                onPointerOver={hover(true)}
+                onPointerOut={hover(false)}
+              >
+                <sphereGeometry args={[0.3, 32, 32]} />
+                <meshBasicMaterial color="#aaaaaa" />
+                <Label text={node.label} />
+              </mesh>
+            </group>
+          )
+        })}
+      </group>
+    </>
+  )
+}
+
+// ─── Graph ────────────────────────────────────────────────────────────────────
+
 const Graph = () => {
   const { activePath, navigateTo } = useGraphStore()
-  const activeDepth = activePath.length - 1  // 0 = root view, 1 = tier1 view
+  const activeDepth = activePath.length - 1
   const activeTier1Id = activePath[1] ?? null
 
-  // ── Root view (depth 0) ──────────────────────────────────────────────────
-  if (activeDepth === 0) {
-    return (
-      <>
-        {/* Root node */}
-        <mesh
-          position={[0, 0, 0]}
-          onClick={(e) => { e.stopPropagation(); navigateTo('root') }}
-          onPointerOver={hover(true)}
-          onPointerOut={hover(false)}
-        >
-          <sphereGeometry args={[0.6, 32, 32]} />
-          <meshBasicMaterial color="#ffffff" />
-        </mesh>
-
-        {/* Root → Tier 1 edges */}
-        {tier1Nodes.map((node, i) => {
-          const { x, y, z } = tier1CircPositions[i]
-          return (
-            <Line
-              key={`edge-${node.id}`}
-              points={[[0, 0, 0], [x, y, z]]}
-              color="#555555"
-              lineWidth={1}
-              dashed
-              dashSize={0.2}
-              gapSize={0.2}
-            />
-          )
-        })}
-
-        {/* Tier 1 nodes */}
-        {tier1Nodes.map((node, i) => {
-          const { x, y, z } = tier1CircPositions[i]
-          return (
-            <mesh
-              key={node.id}
-              position={[x, y, z]}
-              onClick={(e) => { e.stopPropagation(); navigateTo(node.id) }}
-              onPointerOver={hover(true)}
-              onPointerOut={hover(false)}
-            >
-              <sphereGeometry args={[0.4, 32, 32]} />
-              <meshBasicMaterial color="#3b82f6" />
-            </mesh>
-          )
-        })}
-      </>
-    )
-  }
-
-  // ── Tier 1 view (depth 1) ────────────────────────────────────────────────
-  if (activeDepth === 1 && activeTier1Id) {
-    const t1Pos = nodeWorldPositions[activeTier1Id]
-    const tier2Children = portfolioData.filter((n) => n.parentId === activeTier1Id)
-
-    return (
-      <>
-        {/* Active tier 1 — visual center, not clickable */}
-        <mesh position={t1Pos.toArray()}>
-          <sphereGeometry args={[0.5, 32, 32]} />
-          <meshBasicMaterial color="#3b82f6" />
-        </mesh>
-
-        {/* Tier 1 → Tier 2 edges */}
-        {tier2Children.map((node) => {
-          const pos = nodeWorldPositions[node.id]
-          return (
-            <Line
-              key={`edge-${node.id}`}
-              points={[t1Pos.toArray(), pos.toArray()]}
-              color="#555555"
-              lineWidth={1}
-              dashed
-              dashSize={0.2}
-              gapSize={0.2}
-            />
-          )
-        })}
-
-        {/* Tier 2 nodes */}
-        {tier2Children.map((node) => {
-          const pos = nodeWorldPositions[node.id]
-          return (
-            <mesh
-              key={node.id}
-              position={pos.toArray()}
-              onClick={(e) => { e.stopPropagation(); navigateTo(node.id) }}
-              onPointerOver={hover(true)}
-              onPointerOut={hover(false)}
-            >
-              <sphereGeometry args={[0.3, 32, 32]} />
-              <meshBasicMaterial color="#818cf8" />
-            </mesh>
-          )
-        })}
-      </>
-    )
-  }
-
+  if (activeDepth === 0) return <RootView navigateTo={navigateTo} />
+  if (activeDepth === 1 && activeTier1Id) return <Tier1View activeTier1Id={activeTier1Id} />
   return null
 }
 
@@ -205,8 +234,8 @@ export const Experience = () => {
   const controlsRef = useRef<InstanceType<typeof TrackballControls> | null>(null)
 
   return (
-    <div className="fixed inset-0 w-full h-full">
-      <Canvas camera={{ position: [0, 0, 18], fov: 50 }}>
+    <div className="w-full h-full">
+      <Canvas camera={{ position: [0, 0, 13], fov: 50 }}>
         <ambientLight intensity={0.6} />
         <Graph />
         <CameraRig controlsRef={controlsRef} />

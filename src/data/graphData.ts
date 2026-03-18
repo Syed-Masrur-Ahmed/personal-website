@@ -8,7 +8,7 @@ export type GraphNode = {
 
 export const portfolioData: GraphNode[] = [
   // Root
-  { id: "root", label: "Syed Masrur Ahmed", tier: 0, parentId: null },
+  { id: "root", label: "About Me", tier: 0, parentId: null },
 
   // Tier 1 Categories
   { id: "projects", label: "Projects", tier: 1, parentId: "root" },

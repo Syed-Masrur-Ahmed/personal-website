@@ -10,7 +10,7 @@ export const Breadcrumb = () => {
   const navigateToIndex = useGraphStore((s) => s.navigateToIndex)
 
   return (
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm z-10 pointer-events-auto select-none whitespace-nowrap">
+    <div className="flex items-center gap-2 text-sm select-none whitespace-nowrap">
       {activePath.map((id, index) => {
         const isLast = index === activePath.length - 1
         return (

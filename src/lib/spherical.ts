@@ -1,6 +1,25 @@
 export type SphericalPoint = { x: number; y: number; z: number };
 
 /**
+ * Returns `count` points evenly distributed on a circle in the XZ plane.
+ * Equal angular spacing (360 / count degrees apart).
+ */
+export function calculateCircularPositions(
+  count: number,
+  radius: number
+): SphericalPoint[] {
+  if (count === 0) return [];
+  return Array.from({ length: count }, (_, i) => {
+    const angle = (i / count) * Math.PI * 2;
+    return {
+      x: Math.cos(angle) * radius,
+      y: 0,
+      z: Math.sin(angle) * radius,
+    };
+  });
+}
+
+/**
  * Returns `count` points evenly distributed on the surface of a sphere
  * of the given `radius` using the Fibonacci spiral (golden angle) method.
  * This gives a visually uniform spread for any count.

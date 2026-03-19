@@ -13,12 +13,11 @@ import { useGraphStore } from '@/store/graphStore'
 
 const TIER1_RADIUS = 5
 const TIER2_RADIUS = 3.5
-const ORBIT_SPEED = 0.15 // radians per second
+const ORBIT_SPEED = 0.15
 
 const tier1Nodes = portfolioData.filter((n) => n.tier === 1)
 const tier1CircPositions = calculateCircularPositions(tier1Nodes.length, TIER1_RADIUS)
 
-// Mutable — updated on click to capture the orbital position at moment of selection
 const nodeWorldPositions: Record<string, THREE.Vector3> = {
   root: new THREE.Vector3(0, 0, 0),
   ...Object.fromEntries(
@@ -74,21 +73,32 @@ const CameraRig = ({ controlsRef }: { controlsRef: ControlsRef }) => {
   return null
 }
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Label ────────────────────────────────────────────────────────────────────
 
-const hover = (on: boolean) => () => { document.body.style.cursor = on ? 'pointer' : 'default' }
+type LabelProps = {
+  text: string
+  onClick?: () => void
+}
 
-const Label = ({ text }: { text: string }) => (
+const Label = ({ text, onClick }: LabelProps) => (
   <Html center distanceFactor={10} zIndexRange={[0, 0]}>
-    <span style={{
-      color: 'white',
-      fontSize: '12px',
-      whiteSpace: 'nowrap',
-      pointerEvents: 'none',
-      userSelect: 'none',
-      textShadow: '0 1px 4px rgba(0,0,0,0.8)',
-      letterSpacing: '0.05em',
-    }}>
+    <span
+      onClick={onClick}
+      onMouseEnter={() => { if (onClick) document.body.style.cursor = 'pointer' }}
+      onMouseLeave={() => { document.body.style.cursor = 'default' }}
+      style={{
+        color: 'white',
+        fontSize: '12px',
+        whiteSpace: 'nowrap',
+        userSelect: 'none',
+        textShadow: '0 1px 4px rgba(0,0,0,0.8)',
+        letterSpacing: '0.05em',
+        pointerEvents: onClick ? 'auto' : 'none',
+        cursor: onClick ? 'pointer' : 'default',
+        padding: '8px 12px',
+        display: 'inline-block',
+      }}
+    >
       {text}
     </span>
   </Html>
@@ -98,28 +108,31 @@ const Label = ({ text }: { text: string }) => (
 
 const RootView = ({ navigateTo }: { navigateTo: (id: string) => void }) => {
   const groupRef = useRef<THREE.Group>(null)
+  // Track live world positions of orbiting tier 1 meshes
+  const meshRefs = useRef<(THREE.Mesh | null)[]>([])
+  const livePositions = useRef<THREE.Vector3[]>(tier1Nodes.map(() => new THREE.Vector3()))
 
   useFrame(({ clock }) => {
     if (groupRef.current) {
       groupRef.current.rotation.y = clock.getElapsedTime() * ORBIT_SPEED
     }
+    meshRefs.current.forEach((mesh, i) => {
+      if (mesh) mesh.getWorldPosition(livePositions.current[i])
+    })
   })
 
   return (
     <>
       {/* Root node */}
-      <mesh
-        position={[0, 0, 0]}
-        onClick={(e) => { e.stopPropagation(); navigateTo('root') }}
-        onPointerOver={hover(true)}
-        onPointerOut={hover(false)}
-      >
-        <sphereGeometry args={[0.6, 32, 32]} />
-        <meshBasicMaterial color="#444444" />
-        <Label text="About Me" />
-      </mesh>
+      <group position={[0, 0, 0]}>
+        <mesh>
+          <sphereGeometry args={[0.6, 32, 32]} />
+          <meshBasicMaterial color="#444444" />
+        </mesh>
+        <Label text="About Me" onClick={() => navigateTo('root')} />
+      </group>
 
-      {/* Orbiting tier 1 group — edges and nodes share local space */}
+      {/* Orbiting tier 1 group */}
       <group ref={groupRef}>
         {tier1Nodes.map((node, i) => {
           const { x, y, z } = tier1CircPositions[i]
@@ -135,20 +148,17 @@ const RootView = ({ navigateTo }: { navigateTo: (id: string) => void }) => {
               />
               <mesh
                 position={[x, y, z]}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  // Capture world position at click time so camera flies to correct spot
-                  const worldPos = new THREE.Vector3()
-                  e.object.getWorldPosition(worldPos)
-                  nodeWorldPositions[node.id] = worldPos
-                  navigateTo(node.id)
-                }}
-                onPointerOver={hover(true)}
-                onPointerOut={hover(false)}
+                ref={(el) => { meshRefs.current[i] = el }}
               >
                 <sphereGeometry args={[0.4, 32, 32]} />
-                <meshBasicMaterial color="#aaaaaa" />
-                <Label text={node.label} />
+                <meshBasicMaterial color="#666666" />
+                <Label
+                  text={node.label}
+                  onClick={() => {
+                    nodeWorldPositions[node.id] = livePositions.current[i].clone()
+                    navigateTo(node.id)
+                  }}
+                />
               </mesh>
             </group>
           )
@@ -177,14 +187,14 @@ const Tier1View = ({ activeTier1Id }: { activeTier1Id: string }) => {
 
   return (
     <>
-      {/* Active tier 1 — static center */}
+      {/* Active tier 1 — static center, not clickable */}
       <mesh position={t1Pos.toArray()}>
         <sphereGeometry args={[0.5, 32, 32]} />
         <meshBasicMaterial color="#444444" />
         <Label text={t1Node.label} />
       </mesh>
 
-      {/* Orbiting tier 2 group — centered on tier 1 node */}
+      {/* Orbiting tier 2 group */}
       <group position={t1Pos.toArray()} ref={groupRef}>
         {tier2Children.map((node, i) => {
           const { x, y, z } = tier2Positions[i]
@@ -198,15 +208,13 @@ const Tier1View = ({ activeTier1Id }: { activeTier1Id: string }) => {
                 dashSize={0.2}
                 gapSize={0.2}
               />
-              <mesh
-                position={[x, y, z]}
-                onClick={(e) => { e.stopPropagation(); if (node.href) router.push(node.href) }}
-                onPointerOver={hover(true)}
-                onPointerOut={hover(false)}
-              >
+              <mesh position={[x, y, z]}>
                 <sphereGeometry args={[0.3, 32, 32]} />
-                <meshBasicMaterial color="#aaaaaa" />
-                <Label text={node.label} />
+                <meshBasicMaterial color="#666666" />
+                <Label
+                  text={node.label}
+                  onClick={() => { if (node.href) router.push(node.href) }}
+                />
               </mesh>
             </group>
           )
@@ -235,7 +243,7 @@ export const Experience = () => {
 
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 0, 13], fov: 50 }}>
+      <Canvas camera={{ position: [0, 0, 13], fov: 50 }} gl={{ alpha: true }} style={{ background: 'transparent' }}>
         <ambientLight intensity={0.6} />
         <Graph />
         <CameraRig controlsRef={controlsRef} />

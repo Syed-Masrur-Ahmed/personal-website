@@ -4,15 +4,26 @@ import { useGraphStore } from '@/store/graphStore'
 
 const panels: Record<string, React.ReactNode> = {
   root: (
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight">Syed Masrur Ahmed</h1>
-      <p className="mt-3 text-white/60 max-w-xl leading-relaxed">
-        Computer Science student at Dartmouth College. I build software that is fast, useful, and well-crafted.
-      </p>
-      <div className="mt-5 flex gap-4 text-sm">
-        <a href="https://github.com" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">GitHub</a>
-        <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">LinkedIn</a>
-        <a href="mailto:you@example.com" className="text-white/50 hover:text-white transition-colors">Email</a>
+    <div className="flex items-center gap-8">
+      <div className="w-24 h-24 rounded-full overflow-hidden flex-shrink-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdmppOWRlcHlsa2tmZG5qa21sb2xoczd4dWswaXY1NnpwZ2J4Z3NndSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/PKPEKVWrBrtNXDnNgs/giphy.gif"
+          alt="avatar"
+          className="w-full h-full object-cover scale-110"
+        />
+      </div>
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">Syed Masrur Ahmed</h1>
+        <p className="mt-3 text-white/60 leading-relaxed">
+          Computer Science and Mathematics student at Dartmouth College. I like making cool things.
+        </p>
+        <div className="mt-5 flex gap-4 text-sm">
+          <a href="https://https://github.com/Syed-Masrur-Ahmed" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">GitHub</a>
+          <a href="https://linkedin.com/in/syed-masrur-ahmed" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">LinkedIn</a>
+          <a href="mailto:syed.masrur.ahmed.28@dartmouth.edu" className="text-white/50 hover:text-white transition-colors">Email</a>
+          <a href="/Syed_Masrur_Ahmed_resume.pdf" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">Resume</a>
+        </div>
       </div>
     </div>
   ),
@@ -20,8 +31,8 @@ const panels: Record<string, React.ReactNode> = {
   projects: (
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Projects</h2>
-      <p className="mt-3 text-white/60 max-w-xl leading-relaxed">
-        A selection of things I've built — from research tools to web apps. Click a node to learn more.
+      <p className="mt-3 text-white/60 leading-relaxed">
+        A selection of things I&apos;ve built &mdash; from research tools to web apps. Click a node to learn more.
       </p>
     </div>
   ),
@@ -29,8 +40,8 @@ const panels: Record<string, React.ReactNode> = {
   experience: (
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Experience</h2>
-      <p className="mt-3 text-white/60 max-w-xl leading-relaxed">
-        Places I've worked and problems I've helped solve. Click a node for details.
+      <p className="mt-3 text-white/60 leading-relaxed">
+        Places I&apos;ve worked and problems I&apos;ve helped solve. Click a node for details.
       </p>
     </div>
   ),
@@ -38,8 +49,8 @@ const panels: Record<string, React.ReactNode> = {
   education: (
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Education</h2>
-      <p className="mt-3 text-white/60 max-w-xl leading-relaxed">
-        My academic background and the institutions that shaped how I think.
+      <p className="mt-3 text-white/60 leading-relaxed">
+        Currently I am a rising sophomore at Dartmouth College, double majoring in Computer Science and Mathematics. Click a node to learn more about my academic journey.
       </p>
     </div>
   ),
@@ -48,12 +59,11 @@ const panels: Record<string, React.ReactNode> = {
 export const InfoPanel = () => {
   const activePath = useGraphStore((s) => s.activePath)
   const activeNodeId = activePath[activePath.length - 1]
-  // At depth 1, show the tier 1 panel. At depth 0, show root.
   const panelKey = activePath[1] ?? 'root'
   const content = panels[panelKey] ?? panels['root']
 
   return (
-    <div className="w-full px-12 py-8 border-b-2 border-white/20" style={{ height: '25vh' }}>
+    <div className="w-full" style={{ height: '25vh', paddingLeft: '3rem', paddingRight: '3rem', paddingTop: '2rem', paddingBottom: '2rem' }}>
       <div key={activeNodeId} className="h-full flex flex-col justify-center">
         {content}
       </div>

@@ -26,6 +26,7 @@ export const portfolioData: GraphNode[] = [
   { id: "eskay", label: "ESKAY Science", tier: 2, parentId: "experience", href: "/experience/eskay" },
 
   // Tier 2: Education
-  { id: "dartmouth", label: "Dartmouth College", tier: 2, parentId: "education", href: "/education/dartmouth" },
-  { id: "willes", label: "Willes Little Flower", tier: 2, parentId: "education", href: "/education/willes" },
+  { id: "courses", label: "College Courses", tier: 2, parentId: "education", href: "/education/courses" },
+  { id: "honors", label: "Honors & Awards", tier: 2, parentId: "education", href: "/education/honors" },
+  { id: "clubs", label: "Clubs & Organizations", tier: 2, parentId: "education", href: "/education/clubs" },
 ];

@@ -16,10 +16,10 @@ const panels: Record<string, React.ReactNode> = {
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Syed Masrur Ahmed</h1>
         <p className="mt-3 text-white/60 leading-relaxed">
-          Computer Science and Mathematics student at Dartmouth College. I like making cool things.
+          CS + Math @ Dartmouth College. I like making cool things.
         </p>
         <div className="mt-5 flex gap-4 text-sm">
-          <a href="https://https://github.com/Syed-Masrur-Ahmed" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">GitHub</a>
+          <a href="https://github.com/Syed-Masrur-Ahmed" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">GitHub</a>
           <a href="https://linkedin.com/in/syed-masrur-ahmed" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">LinkedIn</a>
           <a href="mailto:syed.masrur.ahmed.28@dartmouth.edu" className="text-white/50 hover:text-white transition-colors">Email</a>
           <a href="/Syed_Masrur_Ahmed_resume.pdf" target="_blank" rel="noreferrer" className="text-white/50 hover:text-white transition-colors">Resume</a>
@@ -32,7 +32,7 @@ const panels: Record<string, React.ReactNode> = {
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Projects</h2>
       <p className="mt-3 text-white/60 leading-relaxed">
-        A selection of things I&apos;ve built &mdash; from research tools to web apps. Click a node to learn more.
+        A selection of things I&apos;ve built during my coding journey.
       </p>
     </div>
   ),
@@ -41,7 +41,7 @@ const panels: Record<string, React.ReactNode> = {
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Experience</h2>
       <p className="mt-3 text-white/60 leading-relaxed">
-        Places I&apos;ve worked and problems I&apos;ve helped solve. Click a node for details.
+        Places where I&apos;ve worked with my jobs ranging from building health SaaS systems to physics simulations and video games.
       </p>
     </div>
   ),
@@ -50,7 +50,7 @@ const panels: Record<string, React.ReactNode> = {
     <div>
       <h2 className="text-3xl font-bold tracking-tight">Education</h2>
       <p className="mt-3 text-white/60 leading-relaxed">
-        Currently I am a rising sophomore at Dartmouth College, double majoring in Computer Science and Mathematics. Click a node to learn more about my academic journey.
+        My academic journey as a rising sophomore at Dartmouth College, double majoring in Computer Science and Mathematics with a 4.0 GPA.
       </p>
     </div>
   ),

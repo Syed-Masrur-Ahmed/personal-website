@@ -16,7 +16,7 @@ export default async function EducationPage({ params }: { params: Promise<{ slug
   return (
     <main className="min-h-screen bg-black text-white p-12">
       <Link href="/" className="text-white/50 hover:text-white text-sm transition-colors">
-        ← Back to graph
+        ← Back
       </Link>
       <h1 className="mt-8 text-5xl font-bold tracking-tight">{node.label}</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Education</p>

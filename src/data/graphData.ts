@@ -16,14 +16,17 @@ export const portfolioData: GraphNode[] = [
   { id: "education", label: "Education", tier: 1, parentId: "root" },
 
   // Tier 2: Projects
-  { id: "simreach", label: "SimReach", tier: 2, parentId: "projects", href: "/projects/simreach" },
+  { id: "trippee", label: "Trippee", tier: 2, parentId: "projects", href: "/projects/trippee" },
+  { id: "tiny-search-engine", label: "Tiny Search Engine", tier: 2, parentId: "projects", href: "/projects/tiny-search-engine" },
+  { id: "personal-website-game", label: "Personal Website Game", tier: 2, parentId: "projects", href: "/projects/personal-website-game" },
   { id: "sodacan", label: "sodacan", tier: 2, parentId: "projects", href: "/projects/sodacan" },
-  { id: "webcite", label: "WebCite", tier: 2, parentId: "projects", href: "/projects/webcite" },
-  { id: "violens", label: "VioLens", tier: 2, parentId: "projects", href: "/projects/violens" },
+  { id: "pixluv", label: "Pixluv", tier: 2, parentId: "projects", href: "/projects/pixluv" },
 
   // Tier 2: Experience
   { id: "springmicro", label: "SpringMicro Software", tier: 2, parentId: "experience", href: "/experience/springmicro" },
   { id: "eskay", label: "ESKAY Science", tier: 2, parentId: "experience", href: "/experience/eskay" },
+  { id: "mlresearch", label: "ML Research", tier: 2, parentId: "experience", href: "/experience/mlresearch" },
+  { id: "dalilab", label: "DALI Lab", tier: 2, parentId: "experience", href: "/experience/dalilab" },
 
   // Tier 2: Education
   { id: "courses", label: "College Courses", tier: 2, parentId: "education", href: "/education/courses" },

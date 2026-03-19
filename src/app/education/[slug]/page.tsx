@@ -1,6 +1,15 @@
 import Link from 'next/link'
-import { portfolioData } from '@/data/graphData'
 import { notFound } from 'next/navigation'
+import { portfolioData } from '@/data/graphData'
+import CollegeCourses from '@/components/content/education/CollegeCourses'
+import HonorsAwards from '@/components/content/education/HonorsAwards'
+import ClubsOrganizations from '@/components/content/education/ClubsOrganizations'
+
+const pages: Record<string, React.ReactNode> = {
+  courses: <CollegeCourses />,
+  honors: <HonorsAwards />,
+  clubs: <ClubsOrganizations />,
+}
 
 export function generateStaticParams() {
   return portfolioData
@@ -14,14 +23,12 @@ export default async function EducationPage({ params }: { params: Promise<{ slug
   if (!node) notFound()
 
   return (
-    <main className="min-h-screen bg-black text-white p-12">
-      <Link href="/" className="text-white/50 hover:text-white text-sm transition-colors">
+    <main style={{ height: '100vh', overflowY: 'auto', overflowX: 'hidden', background: 'black', color: 'white', padding: '4rem 3rem 3rem 4rem' }}>
+      <Link href="/" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none' }}>
         ← Back
       </Link>
-      <h1 className="mt-8 text-5xl font-bold tracking-tight">{node.label}</h1>
-      <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Education</p>
-      <div className="mt-12 text-white/60">
-        Content coming soon.
+      <div className="mt-8">
+        {pages[slug] ?? <p className="text-white/60">Coming soon.</p>}
       </div>
     </main>
   )

@@ -2,14 +2,28 @@
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+.live-link {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.live-link:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 html,
 body {
+  margin: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   background: black;
+  overflow: hidden;
+  overscroll-behavior: none;
 }

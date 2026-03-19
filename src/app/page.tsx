@@ -4,7 +4,7 @@ import { InfoPanel } from '@/components/InfoPanel'
 
 export default function Home() {
   return (
-    <main className="w-screen h-screen bg-black text-white flex flex-col overflow-hidden">
+    <main style={{ width: '100vw', height: '100vh', overflow: 'hidden', display: 'flex', flexDirection: 'column', color: 'white', background: 'black' }}>
       <InfoPanel />
       <div className="flex items-center justify-center" style={{ height: '10vh', backgroundColor: '#161616' }}>
         <Breadcrumb />

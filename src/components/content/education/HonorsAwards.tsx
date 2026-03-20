@@ -18,7 +18,7 @@ export default function HonorsAwards() {
           <div>
             <div className="flex items-center gap-3">
               <p className="text-white font-semibold">Jack Byrne Scholar in Mathematics</p>
-              <a href="https://math.dartmouth.edu/undergraduate/byrne-scholars/" target="_blank" rel="noreferrer" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.375rem', padding: '0.375rem 0.75rem' }}>Learn more →</a>
+              <a href="https://math.dartmouth.edu/undergraduate/byrne-scholars/" target="_blank" rel="noreferrer" className="live-link">Learn more →</a>
             </div>
             <p className="mt-1 text-white/60 leading-relaxed">Awarded to a select group of students demonstrating exceptional potential and passion for the mathematical sciences.</p>
           </div>
@@ -44,7 +44,7 @@ export default function HonorsAwards() {
           <div>
             <div className="flex items-center gap-3">
               <p className="text-white font-semibold">YES Program Scholar</p>
-              <a href="https://www.yesprograms.org/" target="_blank" rel="noreferrer" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.375rem', padding: '0.375rem 0.75rem' }}>Learn more →</a>
+              <a href="https://www.yesprograms.org/" target="_blank" rel="noreferrer" className="live-link">Learn more →</a>
             </div>
             <p className="mt-1 text-white/60 leading-relaxed">Selected as a cultural ambassador for Bangladesh to the United States through the competitive Kennedy-Lugar Youth Exchange and Study program.</p>
           </div>

@@ -3,12 +3,10 @@ export default function TinySearchEngine() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">Tiny Search Engine</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · Systems Engineering</p>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-white/50 text-sm">
-        <span>C</span>
-        <span>·</span>
-        <span>Bash</span>
-        <span>·</span>
-        <span>Data Structures</span>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {['C', 'Bash', 'Makefile', 'Valgrind', 'Git'].map((tech) => (
+          <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/70 border border-white/20">{tech}</span>
+        ))}
       </div>
 
       <div className="mt-10 flex items-center gap-4">
@@ -42,9 +40,6 @@ export default function TinySearchEngine() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/30 text-xs uppercase tracking-widest">
-        Tech Stack: C, Bash (Testing), Makefile, Valgrind, Git
-      </p>
     </div>
   )
 }

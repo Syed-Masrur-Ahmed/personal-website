@@ -5,12 +5,10 @@ export default function PersonalWebsiteGame() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">Personal Website Game</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project</p>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-white/50 text-sm">
-        <span>Vanilla JavaScript</span>
-        <span>·</span>
-        <span>HTML5 Canvas</span>
-        <span>·</span>
-        <span>CSS3</span>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {['JavaScript (ES6+)', 'HTML5 Canvas', 'CSS3', 'DOM API'].map((tech) => (
+          <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/70 border border-white/20">{tech}</span>
+        ))}
       </div>
 
       <div className="mt-10 flex items-center gap-4">
@@ -51,9 +49,6 @@ export default function PersonalWebsiteGame() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/30 text-xs uppercase tracking-widest">
-        Tech Stack: JavaScript (ES6+), HTML5 Canvas, CSS3, DOM API
-      </p>
     </div>
   )
 }

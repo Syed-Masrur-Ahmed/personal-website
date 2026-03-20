@@ -5,16 +5,10 @@ export default function Trippee() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">Trippee</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · AI-Powered Collaborative Travel Planner</p>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-white/50 text-sm">
-        <span>Next.js 15</span>
-        <span>·</span>
-        <span>TypeScript</span>
-        <span>·</span>
-        <span>Supabase</span>
-        <span>·</span>
-        <span>Google Gemini</span>
-        <span>·</span>
-        <span>Mapbox GL</span>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Google Gemini', 'Mapbox GL', 'Tiptap', '@dnd-kit', 'Vercel AI SDK', 'Resend', 'Tailwind CSS 4'].map((tech) => (
+          <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/70 border border-white/20">{tech}</span>
+        ))}
       </div>
 
       <div className="mt-10 flex items-center gap-4">
@@ -70,9 +64,6 @@ export default function Trippee() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/30 text-xs uppercase tracking-widest">
-        Tech Stack: Next.js 15 (App Router), React 19, TypeScript 5, Supabase, Mapbox, Tiptap, @dnd-kit
-      </p>
     </div>
   )
 }

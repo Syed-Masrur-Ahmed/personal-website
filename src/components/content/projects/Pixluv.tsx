@@ -5,16 +5,10 @@ export default function Pixluv() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">Pixluv</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · A Digital Detox for Pixel Artists</p>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-white/50 text-sm">
-        <span>React Native</span>
-        <span>·</span>
-        <span>Expo</span>
-        <span>·</span>
-        <span>Node.js</span>
-        <span>·</span>
-        <span>PostgreSQL</span>
-        <span>·</span>
-        <span>AWS S3</span>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {['React Native', 'Expo', 'Node.js', 'Express', 'PostgreSQL', 'Prisma', 'AWS S3', 'Cypress', 'JWT'].map((tech) => (
+          <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/70 border border-white/20">{tech}</span>
+        ))}
       </div>
 
       <div className="mt-10 flex items-center gap-4">
@@ -78,9 +72,6 @@ export default function Pixluv() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/30 text-xs uppercase tracking-widest">
-        Tech Stack: React Native 0.81, Expo 54, Node.js, Prisma 6, PostgreSQL, AWS S3, Cypress 14
-      </p>
     </div>
   )
 }

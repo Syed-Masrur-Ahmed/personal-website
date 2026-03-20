@@ -5,16 +5,10 @@ export default function Sodacan() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">sodacan</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · The AI Data Workbench</p>
-      <div className="mt-2 flex flex-wrap items-center gap-2 text-white/50 text-sm">
-        <span>Python</span>
-        <span>·</span>
-        <span>Google Gemini</span>
-        <span>·</span>
-        <span>pandas</span>
-        <span>·</span>
-        <span>Typer</span>
-        <span>·</span>
-        <span>SQLAlchemy</span>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {['Python 3.12', 'Google Gemini', 'pandas', 'Typer', 'SQLAlchemy', 'Snowflake', 'AWS Boto3', 'Rich', 'YAML'].map((tech) => (
+          <span key={tech} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 text-white/70 border border-white/20">{tech}</span>
+        ))}
       </div>
 
       <div className="mt-10 flex items-center gap-4">
@@ -58,9 +52,6 @@ export default function Sodacan() {
         </div>
       </div>
 
-      <p className="mt-8 text-white/30 text-xs uppercase tracking-widest">
-        Tech Stack: Python 3.12, Google Gemini (2.5 Flash), pandas, Snowflake Connector, SQLAlchemy, Typer, AWS Boto3
-      </p>
     </div>
   )
 }

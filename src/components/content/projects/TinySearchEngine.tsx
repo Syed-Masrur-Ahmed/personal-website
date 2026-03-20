@@ -20,7 +20,7 @@ export default function TinySearchEngine() {
       <div className="mt-8 max-w-2xl space-y-6">
         <div>
           <p className="text-white font-medium">Modular Architecture</p>
-          <p className="mt-1 text-white/60 leading-relaxed">Engineered three distinct sub-systems — a recursive Crawler, a file-based Indexer, and a ranked Querier — linked by a shared library of common utility modules.</p>
+          <p className="mt-1 text-white/60 leading-relaxed">Engineered three distinct sub-systems: a recursive Crawler, a file-based Indexer, and a ranked Querier, linked by a shared library of common utility modules.</p>
         </div>
         <div>
           <p className="text-white font-medium">Crawler Engine</p>

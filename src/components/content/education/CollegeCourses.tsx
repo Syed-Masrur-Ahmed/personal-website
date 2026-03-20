@@ -40,7 +40,7 @@ const sections: Section[] = [
         name: 'Full-Stack Web Development',
         term: 'Winter 2026',
         description:
-          'An introduction to full-stack web application development — integrating numerous techniques and technologies to build modern web applications. Topics include static pages, Internet protocols, layout, markup, event-driven asynchronous programming, deployment, security, scalability, and user experience. Projects include building real-time web applications with front-end UIs and server-side APIs.',
+          'An introduction to full-stack web application development, integrating numerous techniques and technologies to build modern web applications. Topics include static pages, Internet protocols, layout, markup, event-driven asynchronous programming, deployment, security, scalability, and user experience. Projects include building real-time web applications with front-end UIs and server-side APIs.',
         topics: ['Event-driven async programming', 'Front-end UI & server-side APIs', 'Security & scalability', 'Deployment & UX'],
         projects: ['Buzzfeed-style quiz app', 'Collaborative sticky notes app', 'YouTube clone', 'Pixluv: a social media app for pixel art and promoting digital detox'],
         videoUrl: '/education/courses/cs52.mov',
@@ -133,7 +133,7 @@ const sections: Section[] = [
         name: 'Video Games and the Meaning of Life',
         term: 'Spring 2025',
         description:
-          'An interdisciplinary course that explores the modern human condition through the stories, designs, and soundscapes of digital games — from the perils of obedience (Hannah Arendt and The Stanley Parable) to the metaphors of illness (Susan Sontag and That Dragon, Cancer), from the deathless dreams of pacifism (Undertale) to the transnational rise of today\'s billion-dollar e-Sports industry (League of Legends). All students are welcome; no gaming or musical experience needed.',
+          'An interdisciplinary course that explores the modern human condition through the stories, designs, and soundscapes of digital games: from the perils of obedience (Hannah Arendt and The Stanley Parable) to the metaphors of illness (Susan Sontag and That Dragon, Cancer), from the deathless dreams of pacifism (Undertale) to the transnational rise of today\'s billion-dollar e-Sports industry (League of Legends). All students are welcome; no gaming or musical experience needed.',
         topics: ['Philosophy & game design', 'Illness & metaphor', 'Pacifism & narrative', 'e-Sports & globalization'],
       },
       {

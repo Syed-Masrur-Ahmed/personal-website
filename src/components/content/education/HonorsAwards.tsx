@@ -34,11 +34,11 @@ export default function HonorsAwards() {
         <p className="text-white/40 text-xs uppercase tracking-widest">International Academic Achievements</p>
         <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '560px' }}>
           <div>
-            <p className="text-white font-semibold">Top in the World — Edexcel IAL Chemistry</p>
+            <p className="text-white font-semibold">Top in the World, Edexcel IAL Chemistry</p>
             <p className="mt-1 text-white/60 leading-relaxed">Achieved the highest examination score globally in the Pearson Edexcel International A-Level examinations.</p>
           </div>
           <div>
-            <p className="text-white font-semibold">Top in Bangladesh — Edexcel IAL Further Mathematics</p>
+            <p className="text-white font-semibold">Top in Bangladesh, Edexcel IAL Further Mathematics</p>
             <p className="mt-1 text-white/60 leading-relaxed">Ranked 1st in the country for advanced mathematical theory, including complex variables, mechanics, and matrix algebra.</p>
           </div>
           <div>

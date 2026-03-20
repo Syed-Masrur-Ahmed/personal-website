@@ -300,8 +300,8 @@ export default function CollegeCourses() {
     <div>
       <h1 className="text-5xl font-bold tracking-tight">College Courses</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Dartmouth College</p>
-      <p style={{ marginTop: '2rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, maxWidth: '600px', fontSize: '0.9375rem' }}>
-        A selection of courses taken across computer science, mathematics, and the liberal arts at Dartmouth College. Click any course to expand its details.
+      <p style={{ marginTop: '2rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, fontSize: '0.9375rem' }}>
+        I have taken various courses across Computer Science and Mathematics alongside some interesting liberal arts courses, which are a staple at Dartmouth.
       </p>
 
       {sections.map((section) => (

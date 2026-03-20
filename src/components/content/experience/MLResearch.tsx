@@ -14,10 +14,10 @@ export default function MLResearch() {
         I am currently investigating the capacity of transformers to learn in-context parameters of continuous stochastic processes. My research focuses on whether a causally-masked transformer can identify hidden Ornstein-Uhlenbeck (OU) parameters (θ, σ) purely from observation, without explicit supervision of the process variables. This work bridges the gap between traditional statistical modeling and modern neural architecture.
       </p>
       <div className="mt-6" style={{ display: 'flex', gap: '1.5rem' }}>
-        <a href="https://github.com/Syed-Masrur-Ahmed/transformer-causal-dynamics" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.375rem', padding: '0.375rem 0.75rem' }}>
+        <a href="https://github.com/Syed-Masrur-Ahmed/transformer-causal-dynamics" target="_blank" rel="noopener noreferrer" className="live-link">
           GitHub →
         </a>
-        <a href="https://transformer-causal-dynamics.onrender.com/" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.375rem', padding: '0.375rem 0.75rem' }}>
+        <a href="https://transformer-causal-dynamics.onrender.com/" target="_blank" rel="noopener noreferrer" className="live-link">
           Live Project →
         </a>
       </div>

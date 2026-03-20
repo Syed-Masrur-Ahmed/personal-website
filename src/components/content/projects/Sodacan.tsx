@@ -13,6 +13,7 @@ export default function Sodacan() {
 
       <div className="mt-10 flex items-center gap-4">
         <a href="https://github.com/Syed-Masrur-Ahmed/sodacan" className="live-link" target="_blank">View the Source Code →</a>
+        <a href="https://www.youtube.com/watch?v=D7Xe7LfG400" className="live-link" target="_blank">Watch Demo →</a>
       </div>
 
       <div className="mt-8 max-w-2xl rounded-lg overflow-hidden border border-white/10">

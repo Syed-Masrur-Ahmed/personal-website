@@ -19,24 +19,28 @@ export default function DALILab() {
         <div style={{ maxWidth: '480px' }}>
           <p className="text-white text-xl font-semibold">SimReach</p>
           <p className="mt-3 text-white/60 leading-relaxed">
-            SimReach is an AWS-based SaaS tool designed to optimize physician outreach strategies. By simulating staffing allocations across clinical networks, the platform helps hospital systems reduce patient travel burden and minimize missed appointments.
+            SimReach is an AWS-based SaaS tool designed to optimize physician outreach strategies. By simulating staffing allocations across clinical networks, the platform helps hospital systems reduce patient travel burden and minimize missed appointments. My role centered on wiring high-performance serverless backend services into a responsive frontend to provide actionable insights for hospital administrators.
           </p>
           <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
             <div>
-              <p className="text-white font-medium">Secure Data Validation</p>
-              <p className="mt-1 text-white/60 leading-relaxed">Engineered a robust validation algorithm for EHR CSV uploads, ensuring data integrity before processing by the backend decision engine.</p>
+              <p className="text-white font-medium">Simulation Visualization Engine</p>
+              <p className="mt-1 text-white/60 leading-relaxed">Developed a dedicated results dashboard using React Router to manage complex navigation states, fetching and visualizing staffing allocation data from S3.</p>
             </div>
             <div>
-              <p className="text-white font-medium">Serverless Infrastructure</p>
-              <p className="mt-1 text-white/60 leading-relaxed">Developed AWS Lambda functions and scheduled cron jobs to automate high-compute simulations and data processing tasks.</p>
+              <p className="text-white font-medium">Serverless Integration</p>
+              <p className="mt-1 text-white/60 leading-relaxed">Wired the frontend to AWS Lambda functions to trigger backend decision-making logic and display real-time results from scheduled cron job processes.</p>
             </div>
             <div>
-              <p className="text-white font-medium">Onboarding Architecture</p>
-              <p className="mt-1 text-white/60 leading-relaxed">Architected the end-to-end user onboarding flow, integrating automated email notification systems to alert administrators upon simulation completion.</p>
+              <p className="text-white font-medium">Data Integrity Engineering</p>
+              <p className="mt-1 text-white/60 leading-relaxed">Developed a robust validation algorithm for EHR CSV uploads, ensuring strict data integrity for high-stakes medical records and cost-modeling inputs.</p>
             </div>
             <div>
-              <p className="text-white font-medium">Full-Stack Integration</p>
-              <p className="mt-1 text-white/60 leading-relaxed">Collaborated on the React-based frontend to visualize staffing recommendations and estimated cost savings for healthcare executives.</p>
+              <p className="text-white font-medium">Full-Stack User Onboarding</p>
+              <p className="mt-1 text-white/60 leading-relaxed">Built end-to-end onboarding flows and automated notification systems for over 50 hospital administrators, utilizing PostgreSQL for persistent state management.</p>
+            </div>
+            <div>
+              <p className="text-white font-medium">SaaS Workflow Optimization</p>
+              <p className="mt-1 text-white/60 leading-relaxed">Leveraged a modern cloud stack to bridge the gap between raw data storage and strategic staffing decisions through a seamless, integrated user experience.</p>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { TrackballControls, Line, Html } from '@react-three/drei'
 import { useRouter } from 'next/navigation'
@@ -56,6 +56,15 @@ const CameraRig = ({ controlsRef }: { controlsRef: ControlsRef }) => {
     targetLookAt.current = nodeWorldPositions[activeNodeId]?.clone() ?? new THREE.Vector3()
     animating.current = true
   }
+
+  // Stop animation immediately when user grabs the controls
+  useEffect(() => {
+    const controls = controlsRef.current
+    if (!controls) return
+    const stopAnim = () => { animating.current = false }
+    controls.addEventListener('start', stopAnim)
+    return () => controls.removeEventListener('start', stopAnim)
+  }, [controlsRef])
 
   useFrame(({ camera }) => {
     if (!animating.current) return

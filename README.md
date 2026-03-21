@@ -1,6 +1,6 @@
 # Personal Website — 3D Radial Graph
 
-**Live at:** https://smahmed.vercel.app
+**Live at:** https://syedmasrurahmed.com
 An interactive 3D portfolio for **Syed Masrur Ahmed**, built as a navigable radial graph in the browser.
 
 ## Overview
@@ -53,4 +53,3 @@ src/
 
 - Click a **Tier 1** node to fly the camera to it and reveal its children
 - Click a **Tier 2** node to navigate to its detail page
-- Use the **breadcrumb** at the bottom to go back up the tree

@@ -249,7 +249,7 @@ const Graph = () => {
 // ─── Root export ──────────────────────────────────────────────────────────────
 
 export const Experience = () => {
-  const controlsRef = useRef<InstanceType<typeof TrackballControls> | null>(null)
+  const controlsRef = useRef<TrackballControlsImpl | null>(null)
 
   return (
     <div className="w-full h-full">

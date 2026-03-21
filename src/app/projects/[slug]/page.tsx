@@ -27,7 +27,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   if (!node) notFound()
 
   return (
-    <main className="h-screen overflow-y-auto overflow-x-hidden bg-black text-white px-5 pt-10 pb-10 md:px-16 md:pt-16 md:pb-12">
+    <main className="h-screen overflow-y-auto overflow-x-hidden bg-black text-white px-5 pt-10 pb-32 md:px-16 md:pt-16 md:pb-12 outline-none">
       <Link href="/" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', textDecoration: 'none' }}>
         ← Back
       </Link>

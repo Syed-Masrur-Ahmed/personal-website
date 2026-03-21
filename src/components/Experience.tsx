@@ -3,6 +3,7 @@
 import { useRef, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { TrackballControls, Line, Html } from '@react-three/drei'
+import type { TrackballControls as TrackballControlsImpl } from 'three-stdlib'
 import { useRouter } from 'next/navigation'
 import * as THREE from 'three'
 import { portfolioData } from '@/data/graphData'
@@ -39,7 +40,7 @@ function getCameraPosition(nodeId: string): THREE.Vector3 {
   return pos.clone().normalize().multiplyScalar(pos.length() + CAM_OFFSET)
 }
 
-type ControlsRef = React.RefObject<InstanceType<typeof TrackballControls> | null>
+type ControlsRef = React.RefObject<TrackballControlsImpl | null>
 
 const CameraRig = ({ controlsRef }: { controlsRef: ControlsRef }) => {
   const activePath = useGraphStore((s) => s.activePath)

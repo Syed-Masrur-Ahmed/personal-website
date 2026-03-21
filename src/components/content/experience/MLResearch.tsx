@@ -46,20 +46,16 @@ export default function MLResearch() {
           </div>
         </div>
         <div className="flex flex-col gap-4 w-full md:w-[300px] flex-shrink-0">
-          <div className="w-full aspect-video">
-            <img
-              src="/experience/mlresearch/plot.png"
-              alt="Research plot"
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
-          <div className="w-full aspect-video">
-            <img
-              src="/experience/mlresearch/conference.png"
-              alt="Wetterhahn Science Symposium"
-              className="w-full h-full object-cover rounded-lg"
-            />
-          </div>
+          <img
+            src="/experience/mlresearch/plot.png"
+            alt="Research plot"
+            className="w-full h-auto rounded-lg"
+          />
+          <img
+            src="/experience/mlresearch/conference.png"
+            alt="Wetterhahn Science Symposium"
+            className="w-full h-auto rounded-lg"
+          />
         </div>
       </div>
     </div>

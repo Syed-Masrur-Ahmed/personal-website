@@ -10,6 +10,10 @@ export default function Home() {
         <Breadcrumb />
       </div>
       <div className="relative flex-1 min-h-0" style={{ backgroundColor: '#161616', backgroundImage: 'radial-gradient(#2a2a2a 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+        <p className="absolute top-3 left-1/2 -translate-x-1/2 text-white/25 text-xs text-center pointer-events-none select-none whitespace-nowrap z-10">
+          <span className="hidden md:inline">scroll to zoom · click &amp; drag to orbit</span>
+          <span className="md:hidden">pinch to zoom · drag to orbit</span>
+        </p>
         <Experience />
       </div>
     </main>

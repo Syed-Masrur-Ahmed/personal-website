@@ -27,7 +27,7 @@ export default function Sodacan() {
       </div>
 
       <p className="mt-8 max-w-2xl text-white/60 leading-relaxed">
-        I developed an AI-powered, terminal-first workbench designed to accelerate data ingestion and transformation for consultants and forward-deployed engineers. The tool reduces the time required to turn messy enterprise data into BI-ready insights from weeks to minutes by automating the "last mile" of data engineering.
+        At HackPrinceton 2025, I co-developed an AI-powered, terminal-first workbench designed to accelerate data ingestion and transformation for consultants and forward-deployed engineers. The tool reduces the time required to turn messy enterprise data into BI-ready insights from weeks to minutes by automating the "last mile" of data engineering.
       </p>
 
       <div className="mt-8 max-w-2xl space-y-6">

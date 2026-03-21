@@ -1,7 +1,7 @@
 export default function HonorsAwards() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">Honors &amp; Awards</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Honors &amp; Awards</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Education</p>
       <p className="mt-8 text-white/60 leading-relaxed" style={{ maxWidth: '640px' }}>
         I have been recognized for academic excellence at Dartmouth College and on an international stage, with a specific focus on Mathematics, Machine Learning, and the Natural Sciences.

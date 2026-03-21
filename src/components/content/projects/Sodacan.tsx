@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Sodacan() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">sodacan</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">sodacan</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · The AI Data Workbench</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {['Python 3.12', 'Google Gemini', 'pandas', 'Typer', 'SQLAlchemy', 'Snowflake', 'AWS Boto3', 'Rich', 'YAML'].map((tech) => (

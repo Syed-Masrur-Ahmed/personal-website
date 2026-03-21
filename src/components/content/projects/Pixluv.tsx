@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Pixluv() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">Pixluv</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Pixluv</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · A Digital Detox for Pixel Artists</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {['React Native', 'Expo', 'Node.js', 'Express', 'PostgreSQL', 'Prisma', 'AWS S3', 'Cypress', 'JWT'].map((tech) => (
@@ -15,7 +15,7 @@ export default function Pixluv() {
         <a href="https://github.com/dartmouth-cs52/project-pixluv" className="live-link" target="_blank">View the Source Code →</a>
       </div>
 
-      <div className="mt-8 grid grid-cols-3 gap-4 max-w-2xl">
+      <div className="mt-8 grid grid-cols-3 gap-2 md:gap-4 max-w-2xl">
         <div className="rounded-lg overflow-hidden border border-white/10">
           <Image
             src="/projects/pixluv/image1-v2.png"

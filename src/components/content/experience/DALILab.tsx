@@ -1,9 +1,9 @@
 export default function DALILab() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">DALI Lab</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">DALI Lab</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Experience</p>
-      <div className="mt-2 flex items-center gap-4 text-white/50 text-sm">
+      <div className="mt-2 flex flex-wrap items-center gap-2 md:gap-4 text-white/50 text-sm">
         <span>Dartmouth Applied Learning & Innovation</span>
         <span>·</span>
         <span>Software Engineer</span>
@@ -15,8 +15,8 @@ export default function DALILab() {
       </p>
 
       {/* SimReach */}
-      <div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start', marginTop: '3rem' }}>
-        <div style={{ maxWidth: '480px' }}>
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-12">
+        <div className="w-full md:max-w-[480px]">
           <p className="text-white text-xl font-semibold">SimReach</p>
           <p className="mt-3 text-white/60 leading-relaxed">
             SimReach is an AWS-based SaaS tool designed to optimize physician outreach strategies. By simulating staffing allocations across clinical networks, the platform helps hospital systems reduce patient travel burden and minimize missed appointments. My role centered on wiring high-performance serverless backend services into a responsive frontend to provide actionable insights for hospital administrators.
@@ -44,27 +44,27 @@ export default function DALILab() {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+        <div className="flex flex-col gap-4 w-full md:w-[300px] flex-shrink-0">
+          <div className="w-full aspect-video">
             <img
               src="/experience/dalilab/simreach1.png"
               alt="SimReach screenshot 1"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+          <div className="w-full aspect-video">
             <img
               src="/experience/dalilab/simreach2.png"
               alt="SimReach screenshot 2"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         </div>
       </div>
 
       {/* Satellite */}
-      <div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start', marginTop: '4rem' }}>
-        <div style={{ maxWidth: '480px' }}>
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-16">
+        <div className="w-full md:max-w-[480px]">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <p className="text-white text-xl font-semibold">Benchmark Space Systems</p>
             <a
@@ -98,19 +98,19 @@ export default function DALILab() {
             </div>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+        <div className="flex flex-col gap-4 w-full md:w-[300px] flex-shrink-0">
+          <div className="w-full aspect-video">
             <img
               src="/experience/dalilab/satellite1.png"
               alt="Satellite simulation screenshot 1"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+          <div className="w-full aspect-video">
             <img
               src="/experience/dalilab/satellite2.png"
               alt="Satellite simulation screenshot 2"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         </div>

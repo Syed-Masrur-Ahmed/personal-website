@@ -1,7 +1,7 @@
 export default function TinySearchEngine() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">Tiny Search Engine</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Tiny Search Engine</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · Systems Engineering</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {['C', 'Bash', 'Makefile', 'Valgrind', 'Git'].map((tech) => (

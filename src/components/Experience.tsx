@@ -9,6 +9,7 @@ import * as THREE from 'three'
 import { portfolioData } from '@/data/graphData'
 import { calculateCircularPositions } from '@/lib/spherical'
 import { useGraphStore } from '@/store/graphStore'
+import { useIsMobile } from '@/hooks/useIsMobile'
 
 // ─── World positions ──────────────────────────────────────────────────────────
 
@@ -94,6 +95,7 @@ const Label = ({ text, onClick }: LabelProps) => (
   <Html center distanceFactor={10} zIndexRange={[0, 0]}>
     <span
       onClick={onClick}
+      onTouchStart={(e) => e.stopPropagation()}
       onMouseEnter={() => { if (onClick) document.body.style.cursor = 'pointer' }}
       onMouseLeave={() => { document.body.style.cursor = 'default' }}
       style={{
@@ -250,10 +252,11 @@ const Graph = () => {
 
 export const Experience = () => {
   const controlsRef = useRef<TrackballControlsImpl | null>(null)
+  const isMobile = useIsMobile()
 
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 0, 13], fov: 50 }} gl={{ alpha: true }} style={{ background: 'transparent' }}>
+      <Canvas camera={{ position: [0, 0, 13], fov: isMobile ? 75 : 50 }} gl={{ alpha: true }} style={{ background: 'transparent' }}>
         <ambientLight intensity={0.6} />
         <Graph />
         <CameraRig controlsRef={controlsRef} />

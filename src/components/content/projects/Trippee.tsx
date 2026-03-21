@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function Trippee() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">Trippee</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">Trippee</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Project · AI-Powered Collaborative Travel Planner</p>
       <div className="mt-4 flex flex-wrap gap-2">
         {['Next.js 15', 'React 19', 'TypeScript', 'Supabase', 'Google Gemini', 'Mapbox GL', 'Tiptap', '@dnd-kit', 'Vercel AI SDK', 'Resend', 'Tailwind CSS 4'].map((tech) => (

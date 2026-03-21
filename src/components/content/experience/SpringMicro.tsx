@@ -1,9 +1,9 @@
 export default function SpringMicro() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">SpringMicro Software</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">SpringMicro Software</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Experience</p>
-      <div className="mt-2 flex items-center gap-4 text-white/50 text-sm">
+      <div className="mt-2 flex flex-wrap items-center gap-2 md:gap-4 text-white/50 text-sm">
         <span>Phoenix, AZ (Remote)</span>
         <span>·</span>
         <span>Software Engineering Intern</span>

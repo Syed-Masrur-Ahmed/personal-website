@@ -1,9 +1,9 @@
 export default function MLResearch() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">ML Research</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">ML Research</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Experience</p>
-      <div className="mt-2 flex items-center gap-4 text-white/50 text-sm">
+      <div className="mt-2 flex flex-wrap items-center gap-2 md:gap-4 text-white/50 text-sm">
         <span>Dartmouth College, Department of Mathematics</span>
         <span>·</span>
         <span>Research Assistant</span>
@@ -22,8 +22,8 @@ export default function MLResearch() {
         </a>
       </div>
 
-      <div style={{ display: 'flex', gap: '3rem', alignItems: 'flex-start', marginTop: '2rem' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', maxWidth: '480px' }}>
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-8">
+        <div className="w-full md:max-w-[480px] flex flex-col gap-6">
           <div>
             <p className="text-white font-medium">Transformer Architecture Design</p>
             <p className="mt-1 text-white/60 leading-relaxed">Engineered a custom transformer from scratch in PyTorch, implementing a novel predictive target centered on the log moment-generating function (MGF) of next-step distributions.</p>
@@ -45,19 +45,19 @@ export default function MLResearch() {
             <p className="mt-1 text-white/60 leading-relaxed">Presented research findings at Dartmouth's premier undergraduate science symposium, communicating results across stochastic modeling, transformer design, and in-context learning to a broad academic audience.</p>
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0 }}>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+        <div className="flex flex-col gap-4 w-full md:w-[300px] flex-shrink-0">
+          <div className="w-full aspect-video">
             <img
               src="/experience/mlresearch/plot.png"
               alt="Research plot"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
-          <div style={{ width: 300, aspectRatio: '16/9' }}>
+          <div className="w-full aspect-video">
             <img
               src="/experience/mlresearch/conference.png"
               alt="Wetterhahn Science Symposium"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '0.5rem' }}
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
         </div>

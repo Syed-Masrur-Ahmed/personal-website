@@ -298,7 +298,7 @@ function CourseRow({ course }: { course: Course }) {
 export default function CollegeCourses() {
   return (
     <div>
-      <h1 className="text-5xl font-bold tracking-tight">College Courses</h1>
+      <h1 className="text-3xl md:text-5xl font-bold tracking-tight">College Courses</h1>
       <p className="mt-4 text-white/40 text-sm uppercase tracking-widest">Dartmouth College</p>
       <p style={{ marginTop: '2rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.75, fontSize: '0.9375rem' }}>
         I have taken various courses across Computer Science and Mathematics alongside some interesting liberal arts courses, which are a staple at Dartmouth.

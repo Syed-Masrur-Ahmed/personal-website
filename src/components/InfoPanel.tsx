@@ -58,13 +58,23 @@ const panels: Record<string, React.ReactNode> = {
 
 export const InfoPanel = () => {
   const activePath = useGraphStore((s) => s.activePath)
+  const navigateToIndex = useGraphStore((s) => s.navigateToIndex)
   const activeNodeId = activePath[activePath.length - 1]
   const panelKey = activePath[1] ?? 'root'
   const content = panels[panelKey] ?? panels['root']
+  const isAtTier1 = activePath.length > 1
 
   return (
     <div className="w-full h-auto md:h-[25vh] px-4 py-4 md:px-12 md:py-8">
       <div key={activeNodeId} className="h-full flex flex-col justify-center">
+        {isAtTier1 && (
+          <button
+            onClick={() => navigateToIndex(0)}
+            className="mb-2 md:mb-3 text-sm text-white/50 hover:text-white transition-colors cursor-pointer bg-transparent border-none p-0 self-start"
+          >
+            ← Back
+          </button>
+        )}
         {content}
       </div>
     </div>

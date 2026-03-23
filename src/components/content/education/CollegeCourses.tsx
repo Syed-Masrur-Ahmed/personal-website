@@ -133,7 +133,7 @@ const sections: Section[] = [
         name: 'Video Games and the Meaning of Life',
         term: 'Spring 2025',
         description:
-          'An interdisciplinary course that explores the modern human condition through the stories, designs, and soundscapes of digital games: from the perils of obedience (Hannah Arendt and The Stanley Parable) to the metaphors of illness (Susan Sontag and That Dragon, Cancer), from the deathless dreams of pacifism (Undertale) to the transnational rise of today\'s billion-dollar e-Sports industry (League of Legends). All students are welcome; no gaming or musical experience needed.',
+          'An interdisciplinary course that explores the modern human condition through the stories, designs, and soundscapes of digital games: from the perils of obedience (Hannah Arendt and The Stanley Parable) to the metaphors of illness (Susan Sontag and That Dragon, Cancer), from the deathless dreams of pacifism (Undertale) to the transnational rise of today\'s billion-dollar e-Sports industry (League of Legends).',
         topics: ['Philosophy & game design', 'Illness & metaphor', 'Pacifism & narrative', 'e-Sports & globalization'],
       },
       {
@@ -141,7 +141,7 @@ const sections: Section[] = [
         name: 'First-year Seminar: Singers as Social Symbols in Asia and Beyond',
         term: 'Winter 2025',
         description:
-          'Around the world and across time, professional singers and their songs stand at the crossroads of differing politics and perspectives. This writing-based seminar explores how a singer can symbolize different things to different people, giving rise to discussions of a range of cultural politics. Examining case studies from pop superstar Teresa Teng to Indian legend Lata Mangeshkar, from Beyoncé to BTS, we focus on how interdisciplinary scholars of popular music develop, test, and refine ideas through writing, conduct research, build arguments, revise drafts, and engage with readers.',
+          'This writing-based seminar explores how a singer can symbolize different things to different people, giving rise to discussions of a range of cultural politics. Examining case studies from pop superstar Teresa Teng to Indian legend Lata Mangeshkar, from Beyoncé to BTS, I focused on how interdisciplinary scholars of popular music develop, test, and refine ideas through writing, conduct research, build arguments, revise drafts, and engage with readers.',
         topics: ['Race, gender & class in performance', 'Singer as social symbol', 'Academic writing & revision', 'Popular music studies'],
       },
       {
@@ -149,7 +149,7 @@ const sections: Section[] = [
         name: 'Introduction to Comparative Literature',
         term: 'Fall 2024',
         description:
-          'An introduction to the study of literature across languages and cultures. Examines foundational texts from multiple traditions alongside contemporary critical theory and methods of close reading.',
+          'An introduction to the study of literature across languages and cultures. I examined foundational texts from multiple traditions alongside contemporary critical theory and methods of close reading.',
         topics: ['Close reading', 'Critical theory', 'World literatures', 'Textual analysis'],
       },
     ],

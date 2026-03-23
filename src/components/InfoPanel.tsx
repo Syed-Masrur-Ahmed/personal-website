@@ -50,7 +50,7 @@ const panels: Record<string, React.ReactNode> = {
     <div>
       <h2 className="text-xl md:text-3xl font-bold tracking-tight">Education</h2>
       <p className="mt-3 text-sm md:text-base text-white/60 leading-relaxed">
-        My academic journey as a rising sophomore at Dartmouth College, double majoring in Computer Science and Mathematics with a 4.0 GPA.
+        My academic journey as a rising sophomore at Dartmouth College, double majoring in Computer Science and Mathematics.
       </p>
     </div>
   ),

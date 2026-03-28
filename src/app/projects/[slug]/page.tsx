@@ -6,6 +6,7 @@ import TinySearchEngine from '@/components/content/projects/TinySearchEngine'
 import PersonalWebsiteGame from '@/components/content/projects/PersonalWebsiteGame'
 import Sodacan from '@/components/content/projects/Sodacan'
 import Pixluv from '@/components/content/projects/Pixluv'
+import MaskProxy from '@/components/content/projects/MaskProxy'
 
 const pages: Record<string, React.ReactNode> = {
   trippee: <Trippee />,
@@ -13,6 +14,7 @@ const pages: Record<string, React.ReactNode> = {
   'personal-website-game': <PersonalWebsiteGame />,
   sodacan: <Sodacan />,
   pixluv: <Pixluv />,
+  maskproxy: <MaskProxy />,
 }
 
 export function generateStaticParams() {

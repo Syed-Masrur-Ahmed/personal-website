@@ -21,6 +21,7 @@ export const portfolioData: GraphNode[] = [
   { id: "personal-website-game", label: "Personal Website Game", tier: 2, parentId: "projects", href: "/projects/personal-website-game" },
   { id: "sodacan", label: "sodacan", tier: 2, parentId: "projects", href: "/projects/sodacan" },
   { id: "pixluv", label: "Pixluv", tier: 2, parentId: "projects", href: "/projects/pixluv" },
+  { id: "maskproxy", label: "MaskProxy", tier: 2, parentId: "projects", href: "/projects/maskproxy" },
 
   // Tier 2: Experience
   { id: "springmicro", label: "SpringMicro Software", tier: 2, parentId: "experience", href: "/experience/springmicro" },

@@ -17,11 +17,11 @@ export const portfolioData: GraphNode[] = [
 
   // Tier 2: Projects
   { id: "trippee", label: "Trippee", tier: 2, parentId: "projects", href: "/projects/trippee" },
-  { id: "tiny-search-engine", label: "Tiny Search Engine", tier: 2, parentId: "projects", href: "/projects/tiny-search-engine" },
-  { id: "personal-website-game", label: "Personal Website Game", tier: 2, parentId: "projects", href: "/projects/personal-website-game" },
+  { id: "tiny-search-engine", label: "Tiny Search Engine", tier: 2, parentId: "projects", href: "/projects/tiny-search-engine" },  // { id: "personal-website-game", label: "Personal Website Game", tier: 2, parentId: "projects", href: "/projects/personal-website-game" },
   { id: "sodacan", label: "sodacan", tier: 2, parentId: "projects", href: "/projects/sodacan" },
   { id: "pixluv", label: "Pixluv", tier: 2, parentId: "projects", href: "/projects/pixluv" },
   { id: "maskproxy", label: "MaskProxy", tier: 2, parentId: "projects", href: "/projects/maskproxy" },
+  { id: "info-butler-agent", label: "Information Butler Agent", tier: 2, parentId: "projects", href: "/projects/info-butler-agent" },
 
   // Tier 2: Experience
   { id: "springmicro", label: "SpringMicro Software", tier: 2, parentId: "experience", href: "/experience/springmicro" },

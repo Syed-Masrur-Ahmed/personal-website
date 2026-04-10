@@ -7,6 +7,7 @@ import PersonalWebsiteGame from '@/components/content/projects/PersonalWebsiteGa
 import Sodacan from '@/components/content/projects/Sodacan'
 import Pixluv from '@/components/content/projects/Pixluv'
 import MaskProxy from '@/components/content/projects/MaskProxy'
+import InfoButlerAgent from '@/components/content/projects/InfoButlerAgent'
 
 const pages: Record<string, React.ReactNode> = {
   trippee: <Trippee />,
@@ -15,6 +16,7 @@ const pages: Record<string, React.ReactNode> = {
   sodacan: <Sodacan />,
   pixluv: <Pixluv />,
   maskproxy: <MaskProxy />,
+  'info-butler-agent': <InfoButlerAgent />,
 }
 
 export function generateStaticParams() {

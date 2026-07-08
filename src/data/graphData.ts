@@ -24,6 +24,7 @@ export const portfolioData: GraphNode[] = [
   { id: "info-butler-agent", label: "Information Butler Agent", tier: 2, parentId: "projects", href: "/projects/info-butler-agent" },
 
   // Tier 2: Experience
+  { id: "natlawreview", label: "The National Law Review", tier: 2, parentId: "experience", href: "/experience/natlawreview" },
   { id: "springmicro", label: "SpringMicro Software", tier: 2, parentId: "experience", href: "/experience/springmicro" },
   { id: "eskay", label: "ESKAY Science", tier: 2, parentId: "experience", href: "/experience/eskay" },
   { id: "mlresearch", label: "ML Research", tier: 2, parentId: "experience", href: "/experience/mlresearch" },

@@ -1,12 +1,14 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { portfolioData } from '@/data/graphData'
+import NationalLawReview from '@/components/content/experience/NationalLawReview'
 import SpringMicro from '@/components/content/experience/SpringMicro'
 import Eskay from '@/components/content/experience/Eskay'
 import MLResearch from '@/components/content/experience/MLResearch'
 import DALILab from '@/components/content/experience/DALILab'
 
 const pages: Record<string, React.ReactNode> = {
+  natlawreview: <NationalLawReview />,
   springmicro: <SpringMicro />,
   eskay: <Eskay />,
   mlresearch: <MLResearch />,

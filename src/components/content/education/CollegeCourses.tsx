@@ -25,6 +25,14 @@ const sections: Section[] = [
     label: 'Computer Science',
     courses: [
       {
+        code: 'COSC 31',
+        name: 'Algorithms',
+        term: 'Spring 2026',
+        description:
+          'A survey of fundamental algorithms and algorithmic techniques, including divide-and-conquer algorithms, dynamic programming, randomized algorithms, greedy algorithms, and graph algorithms. Presentation, implementation, and formal analysis are all emphasized, including space/time complexity and proofs of correctness.',
+        topics: ['Divide & conquer', 'Dynamic programming', 'Greedy & graph algorithms', 'Complexity & correctness proofs'],
+      },
+      {
         code: 'COSC 51',
         name: 'Computer Architecture',
         term: 'Winter 2026',
@@ -91,6 +99,14 @@ const sections: Section[] = [
   {
     label: 'Mathematics',
     courses: [
+      {
+        code: 'MATH 30.04',
+        name: 'Evolutionary Game Theory and Applications',
+        term: 'Spring 2026',
+        description:
+          'Pioneered by John Maynard Smith and others, evolutionary game theory has become an important approach to studying a wide range of biological and social problems, from microbial interactions to animal behavior. In evolutionary game dynamics, the fitness of individuals depends on the relative abundance of all types in the population, and higher-fitness types tend to increase in abundance. The course introduces evolutionarily stable strategies, replicator dynamics, finite populations, and games on networks, with applications to social evolution and human cooperation.',
+        topics: ['Evolutionarily stable strategies', 'Replicator dynamics', 'Finite populations', 'Games on networks'],
+      },
       {
         code: 'MATH 35',
         name: 'Real Analysis',

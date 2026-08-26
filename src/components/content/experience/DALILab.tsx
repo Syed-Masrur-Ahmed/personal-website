@@ -6,16 +6,56 @@ export default function DALILab() {
       <div className="mt-2 flex flex-wrap items-center gap-2 md:gap-4 text-white/50 text-sm">
         <span>Dartmouth Applied Learning & Innovation</span>
         <span>·</span>
-        <span>Software Engineer</span>
+        <span>Software Engineer (Part-time)</span>
         <span>·</span>
-        <span>September 2025 – March 2026</span>
+        <span>September 2025 – Present</span>
       </div>
       <p className="mt-8 text-white/60 leading-relaxed" style={{ maxWidth: '640px' }}>
-        At DALI Lab, I operated as a full-stack engineer across two distinct products. My work ranged from architecting secure healthcare data pipelines for an enterprise SaaS platform to refactoring a retro arcade game for global web deployment. I focused on building systems that are both technically robust and intuitive for the end user.
+        At DALI Lab, I operated as a full-stack engineer across three distinct products. My work ranged from architecting secure healthcare data pipelines for an enterprise SaaS platform, to refactoring a retro arcade game for global web deployment, to building trust boundaries around LLM tool calling on a student wellness assistant&apos;s Python backend. I focused on building systems that are both technically robust and intuitive for the end user.
       </p>
 
+      {/* Evergreen */}
+      <div className="mt-12">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <p className="text-white text-xl font-semibold">Evergreen</p>
+          <a
+            href="https://evergreen.dartmouth.edu/"
+            target="_blank"
+            rel="noreferrer"
+            className="live-link"
+          >
+            Learn More ↗
+          </a>
+        </div>
+        <p className="mt-3 text-white/60 leading-relaxed" style={{ maxWidth: '640px' }}>
+          Evergreen is a student wellness application built at Dartmouth&apos;s DALI Lab. It pulls passive signals from a student&apos;s phone and wearables, sleep, step counts, screen time, alongside self-reported mood, and surfaces them through an LLM assistant that can read a user&apos;s data and act on it through tool calls. I worked on the Python backend.
+        </p>
+        <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '640px' }}>
+          <div>
+            <p className="text-white font-medium">Google Calendar Token Vault</p>
+            <p className="mt-1 text-white/60 leading-relaxed">The assistant needs to read a user&apos;s calendar, which raises the question of where OAuth credentials live. I built the backend to own refresh tokens and expose an internal endpoint that mints short-lived, per-user access tokens for the MCP server, which then calls Google directly. Long-lived secrets stay in one place with a clear trust boundary, and the tool layer holds nothing durable.</p>
+          </div>
+          <div>
+            <p className="text-white font-medium">Calendar Conflict Detection</p>
+            <p className="mt-1 text-white/60 leading-relaxed">Built on top of the token vault, a service that reads a user&apos;s actual calendar to place daily reminders in a free slot, preferring a morning window, falling back through the day, and ignoring all-day events.</p>
+          </div>
+          <div>
+            <p className="text-white font-medium">Least-Privilege Microsoft Graph Access</p>
+            <p className="mt-1 text-white/60 leading-relaxed">Authored and drove the Graph integration&apos;s access request with Dartmouth ITC. Application-level Mail.Read is tenant-wide by default, so the request pairs the permission grant with an Exchange Application Access Policy scoping it to a single mailbox, using app-only certificate auth with the private key held in Secrets Manager.</p>
+          </div>
+          <div>
+            <p className="text-white font-medium">Campus Events Ingestion Pipeline</p>
+            <p className="mt-1 text-white/60 leading-relaxed">An hourly job that reads a dedicated Dartmouth mailbox subscribed to the campus events listserv, extracts structured events from unstructured email with a Bedrock model, and dedups them against a uniqueness constraint. Malformed model output is logged and skipped rather than failing the run, concurrency across workers is handled with a Postgres advisory lock, and the fetch/extract seams are injectable so the whole pipeline is testable without live Graph access.</p>
+          </div>
+          <div>
+            <p className="text-white font-medium">Chart Data API & Response Envelope</p>
+            <p className="mt-1 text-white/60 leading-relaxed">Built the read endpoints backing Evergreen&apos;s charts across four metrics at daily and weekly granularity behind a single response envelope (metric, unit, scope, and time-bucketed points), so adding a metric is a lookup-table entry rather than a new response shape. Sleep is the interesting edge case: a night crossing midnight is attributed pro-rata across days by overlap rather than dumped on the start date.</p>
+          </div>
+        </div>
+      </div>
+
       {/* SimReach */}
-      <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-12">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start mt-16">
         <div className="w-full md:max-w-[480px]">
           <p className="text-white text-xl font-semibold">SimReach</p>
           <p className="mt-3 text-white/60 leading-relaxed">

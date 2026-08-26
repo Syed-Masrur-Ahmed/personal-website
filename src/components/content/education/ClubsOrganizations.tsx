@@ -15,19 +15,35 @@ export default function ClubsOrganizations() {
           <p className="text-white/60 leading-relaxed">
             To balance things out, I&apos;m a member of Street Soul, Dartmouth&apos;s street dance group. It&apos;s a creative outlet and a completely different way to collaborate with a team away from a screen or a textbook.
           </p>
+          <p className="text-white/60 leading-relaxed">
+            I&apos;m also part of Spilled Ink, Dartmouth&apos;s poetry club. I performed at its slam poetry night, another way to keep a creative, non-technical outlet alongside the engineering work.
+          </p>
         </div>
 
-        {/* Image */}
-        <div className="flex-shrink-0 w-full md:w-[300px]">
-          <div className="w-full" style={{ aspectRatio: '4/5' }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/education/clubsorg/ss.png"
-              alt="Street Soul"
-              className="w-full h-full object-cover rounded-lg"
-            />
+        {/* Images */}
+        <div className="flex-shrink-0 w-full md:w-[300px] flex flex-col gap-6">
+          <div>
+            <div className="w-full" style={{ aspectRatio: '4/5' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/education/clubsorg/ss.png"
+                alt="Street Soul"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <p className="mt-2 text-xs text-white/35 text-center">After my first dance show with Street Soul</p>
           </div>
-          <p className="mt-2 text-xs text-white/35 text-center">After my first dance show with Street Soul</p>
+          <div>
+            <div className="w-full" style={{ aspectRatio: '4/5' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/education/clubsorg/poetry.png"
+                alt="Spilled Ink slam poetry night"
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+            <p className="mt-2 text-xs text-white/35 text-center">Performing at Spilled Ink&apos;s slam poetry night</p>
+          </div>
         </div>
       </div>
     </div>

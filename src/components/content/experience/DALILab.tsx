@@ -28,28 +28,20 @@ export default function DALILab() {
           </a>
         </div>
         <p className="mt-3 text-white/60 leading-relaxed" style={{ maxWidth: '640px' }}>
-          Evergreen is a student wellness application built at Dartmouth&apos;s DALI Lab. It pulls passive signals from a student&apos;s phone and wearables, sleep, step counts, screen time, alongside self-reported mood, and surfaces them through an LLM assistant that can read a user&apos;s data and act on it through tool calls. I worked on the Python backend.
+          Evergreen is a student wellness application built at Dartmouth&apos;s DALI Lab. It pulls passive signals from a student&apos;s phone and wearables, sleep, step counts, screen time, alongside self-reported mood, and surfaces them through an LLM assistant that can read a user&apos;s data and act on it through tool calls. I built the Python backend: a FastAPI service on PostgreSQL with SQLAlchemy and Alembic migrations, APScheduler for background jobs, and pytest for coverage, authenticating end users via Firebase Auth and internal services via API keys.
         </p>
         <div style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', maxWidth: '640px' }}>
           <div>
-            <p className="text-white font-medium">Google Calendar Token Vault</p>
-            <p className="mt-1 text-white/60 leading-relaxed">The assistant needs to read a user&apos;s calendar, which raises the question of where OAuth credentials live. I built the backend to own refresh tokens and expose an internal endpoint that mints short-lived, per-user access tokens for the MCP server, which then calls Google directly. Long-lived secrets stay in one place with a clear trust boundary, and the tool layer holds nothing durable.</p>
+            <p className="text-white font-medium">MCP Tool Layer & Calendar Token Vault</p>
+            <p className="mt-1 text-white/60 leading-relaxed">The assistant reaches Google Calendar and the rest of its tools through a Model Context Protocol server, which raises the question of where OAuth credentials live. I built the backend to own the OAuth 2.0 refresh tokens and expose an internal, API-key-authenticated endpoint that mints short-lived (10-15 minute) per-user access tokens on demand for the MCP server, which then calls the Calendar API directly and holds nothing durable itself. On top of that trust boundary, an MCP tool pulls a user&apos;s free/busy blocks and scores candidate slots to place daily reminders, preferring a morning window, falling back through the day, and filtering out all-day and transparent events.</p>
           </div>
           <div>
-            <p className="text-white font-medium">Calendar Conflict Detection</p>
-            <p className="mt-1 text-white/60 leading-relaxed">Built on top of the token vault, a service that reads a user&apos;s actual calendar to place daily reminders in a free slot, preferring a morning window, falling back through the day, and ignoring all-day events.</p>
-          </div>
-          <div>
-            <p className="text-white font-medium">Least-Privilege Microsoft Graph Access</p>
-            <p className="mt-1 text-white/60 leading-relaxed">Authored and drove the Graph integration&apos;s access request with Dartmouth ITC. Application-level Mail.Read is tenant-wide by default, so the request pairs the permission grant with an Exchange Application Access Policy scoping it to a single mailbox, using app-only certificate auth with the private key held in Secrets Manager.</p>
+            <p className="text-white font-medium">Dynamic Chart Generation API</p>
+            <p className="mt-1 text-white/60 leading-relaxed">Built the FastAPI endpoints that dynamically generate Evergreen&apos;s charts: raw sleep, step, screen-time, and mood records are aggregated in Postgres via SQLAlchemy on the fly, at daily or weekly granularity and for any academic term, rather than precomputed. Every metric returns through one Pydantic response envelope (metric, unit, scope, and a list of time-bucketed points), so adding a metric is a lookup-table entry rather than a new response shape, and the same aggregation feeds the MCP tool the assistant calls to reason over a user&apos;s chart data directly. Sleep is the interesting edge case: a night crossing midnight is split by interval overlap and its minutes attributed pro-rata across the two days rather than dumped on the start date.</p>
           </div>
           <div>
             <p className="text-white font-medium">Campus Events Ingestion Pipeline</p>
-            <p className="mt-1 text-white/60 leading-relaxed">An hourly job that reads a dedicated Dartmouth mailbox subscribed to the campus events listserv, extracts structured events from unstructured email with a Bedrock model, and dedups them against a uniqueness constraint. Malformed model output is logged and skipped rather than failing the run, concurrency across workers is handled with a Postgres advisory lock, and the fetch/extract seams are injectable so the whole pipeline is testable without live Graph access.</p>
-          </div>
-          <div>
-            <p className="text-white font-medium">Chart Data API & Response Envelope</p>
-            <p className="mt-1 text-white/60 leading-relaxed">Built the read endpoints backing Evergreen&apos;s charts across four metrics at daily and weekly granularity behind a single response envelope (metric, unit, scope, and time-bucketed points), so adding a metric is a lookup-table entry rather than a new response shape. Sleep is the interesting edge case: a night crossing midnight is attributed pro-rata across days by overlap rather than dumped on the start date.</p>
+            <p className="mt-1 text-white/60 leading-relaxed">An APScheduler job, run hourly, that pulls unread mail from a dedicated Dartmouth mailbox over Microsoft Graph, prompts a Bedrock model to extract structured event fields from the unstructured body, and upserts them against a Postgres uniqueness constraint, exposing the result as another queryable MCP tool. Malformed model JSON is caught, logged, and skipped; a Postgres advisory lock keyed to the job name keeps concurrent workers from double-processing the mailbox. I also authored the least-privilege access request behind it: tenant-wide Mail.Read is scoped to this one mailbox via an Exchange Application Access Policy, authenticated with a certificate whose private key lives in AWS Secrets Manager rather than a client secret.</p>
           </div>
         </div>
       </div>
